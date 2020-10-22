@@ -16,6 +16,4 @@ public class GamesModel {
     public MatchModel getMatchList() {
         return matchList;
     }
-
-
 }

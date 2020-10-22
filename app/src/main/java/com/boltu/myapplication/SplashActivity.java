@@ -52,47 +52,6 @@ public class SplashActivity extends AppCompatActivity {
         flag = 0;
         loop();
 
-
-
-
-//        name = findViewById(R.id.name);
-//        address = findViewById(R.id.address);
-//        contact = findViewById(R.id.contact);
-//        submitBtn = findViewById(R.id.submitBtn);
-//        jsonObject = new JSONObject();
-        //getIpAddress();
-//        kuninIP();
-//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa " + getLocalIpAddress());
-//        submitBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    jsonObject.put("name", name.getText());
-//                    jsonObject.put("address", address.getText());
-//                    jsonObject.put("contact", contact.getText());
-//
-//                    String userString = jsonObject.toString();
-//                    File file = new File(SplashActivity.this.getFilesDir(),"FILE_NAME.json");
-//                    System.out.println("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa done" + SplashActivity.this.getFilesDir().toString());
-//                    FileWriter fileWriter = new FileWriter(file);
-//                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-//                    bufferedWriter.write(userString);
-//                    System.out.println("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa done" );
-//                    String locale = SplashActivity.this.getResources().getConfiguration().locale.getDisplayCountry();
-////                  System.out.println("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa " + locale);
-//
-//                    WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-//                    String ipAddress1 = Integer.toString(wifiManager.getConnectionInfo().getIpAddress());
-//                    String ipAddress = Formatter.formatIpAddress(wifiManager.getConnectionInfo().getIpAddress());
-//                    System.out.println("Your Device IP Address: " + ipAddress + " ===== " + ipAddress1);
-//                } catch (JSONException | IOException e) {
-//                    System.out.println("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa mali" + e);
-//                    e.printStackTrace();
-//                }
-//
-//
-//            }
-//        });
     }
 
     public void loop() {

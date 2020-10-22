@@ -86,7 +86,6 @@
                 android:text=""
                 android:layout_weight=".5"/>
         </LinearLayout>
-
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
