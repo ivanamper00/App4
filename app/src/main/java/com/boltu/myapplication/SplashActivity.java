@@ -14,10 +14,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.boltu.myapplication.controller.GlobalController;
 import com.boltu.myapplication.controller.activity.GamesActivity;
 import com.boltu.myapplication.controller.activity.MainActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,10 +40,14 @@ public class SplashActivity extends AppCompatActivity {
     CountDownTimer countDownTimer;
     GlobalController globalController;
     int flag;
+    ImageView splash;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        splash = findViewById(R.id.splash);
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(splash);
+        Glide.with(this).load(R.drawable.splash).into(imageViewTarget);
 
         globalController = new GlobalController(this);
         globalController.clearContents();
