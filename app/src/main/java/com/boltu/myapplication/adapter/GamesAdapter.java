@@ -66,30 +66,6 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.GamesViewHol
     public void onBindViewHolder(@NonNull GamesViewHolder holder, int position) {
         match = matchList.get(position);
 
-        if(match.getStatus().equalsIgnoreCase("COMPLETED")){
-            holder.series.setText("Series: " + match.getSeries().getName());
-            holder.venue.setText("Venue: " + match.getVenue().getName());
-            holder.homeName.setText(match.getHomeTeam().getName());
-            holder.homeScore.setText(match.getScores().getHomeScore());
-            holder.awayScore.setText(match.getScores().getAwayScore());
-            holder.awayName.setText(match.getAwayTeam().getName());
-            holder.date.setText(match.getStartDateTime().substring(0,10));
-            holder.status.setText(match.getStatus());
-            Picasso.get().load(match.getHomeTeam().getLogoUrl()).into(holder.homeLogo);
-            Picasso.get().load(match.getAwayTeam().getLogoUrl()).into(holder.awayLogo);
-        }
-        else {
-
-            if(match.getHomeTeam().getName().equalsIgnoreCase("unknown")){
-                holder.series.setText("Series: " + match.getSeries().getName());
-                holder.venue.setText("Venue: " + match.getVenue().getName());
-                holder.homeName.setText(match.getHomeTeam().getName());
-                holder.awayName.setText(match.getAwayTeam().getName());
-                holder.date.setText(match.getStartDateTime().substring(0,10));
-                holder.status.setText(match.getStatus());
-                holder.homeLogo.setImageResource(R.drawable.no_image);
-                holder.awayLogo.setImageResource(R.drawable.no_image);
-            }else{
                 holder.series.setText("Series: " + match.getSeries().getName());
                 holder.venue.setText("Venue: " + match.getVenue().getName());
                 holder.homeName.setText(match.getHomeTeam().getName());
@@ -99,9 +75,6 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.GamesViewHol
                 Picasso.get().load(match.getHomeTeam().getLogoUrl()).into(holder.homeLogo);
                 Picasso.get().load(match.getAwayTeam().getLogoUrl()).into(holder.awayLogo);
             }
-        }
-
-    }
 
     @Override
     public int getItemCount() {

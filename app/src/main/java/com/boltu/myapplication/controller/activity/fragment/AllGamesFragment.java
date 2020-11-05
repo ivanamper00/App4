@@ -2,6 +2,7 @@ package com.boltu.myapplication.controller.activity.fragment;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.boltu.myapplication.adapter.GamesAdapter;
 import com.boltu.myapplication.controller.GlobalController;
 import com.boltu.myapplication.model.games.MatchListModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +26,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class AllGamesFragment extends Fragment {
-    GlobalController globalController;
-    RecyclerView recyclerView;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,6 +67,9 @@ public class AllGamesFragment extends Fragment {
         }
     }
 
+    GlobalController globalController;
+    RecyclerView recyclerView;
+    CardView noData;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,12 +77,26 @@ public class AllGamesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_all_games, container, false);
             globalController = new GlobalController(getContext());
             recyclerView = view.findViewById(R.id.games_all_recycler);
+            noData = view.findViewById(R.id.card_no_data);
+            noData.setVisibility(View.GONE);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(llm);
 
-            List<MatchListModel> matchList = globalController.retrieveAllGames();
-            AllGamesAdapter adapter = new AllGamesAdapter(getContext(), matchList);
-            recyclerView.setAdapter(adapter);
+            List<MatchListModel> matchList = globalController.retrieveGames();
+            List<MatchListModel> filteredList = new ArrayList<>();
+
+            for(int i = 0; i<matchList.size(); i++){
+                if(matchList.get(i).getStatus().equalsIgnoreCase("COMPLETED")){
+                    filteredList.add(matchList.get(i));
+                }
+            }
+            if(filteredList.size() == 0){
+                noData.setVisibility(View.VISIBLE);
+            }else{
+                AllGamesAdapter adapter = new AllGamesAdapter(getContext(), filteredList);
+                recyclerView.setAdapter(adapter);
+            }
+
         return view;
     }
 }

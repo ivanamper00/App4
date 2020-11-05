@@ -1,5 +1,6 @@
 package com.boltu.myapplication.database;
 
+import com.boltu.myapplication.model.MatchDetailsModel;
 import com.boltu.myapplication.model.games.GamesModel;
 import com.boltu.myapplication.model.players.PlayersModel;
 import com.boltu.myapplication.model.series.SeriesModel;
@@ -13,20 +14,20 @@ import retrofit2.http.Query;
 
 public interface CricketApi {
 
-    String BASE_URL = "https://dev132-cricket-live-scores-v1.p.rapidapi.com/";
+    String BASE_URL = "https://rapidapi.p.rapidapi.com/";
 
 
     @Headers({"x-rapidapi-host: dev132-cricket-live-scores-v1.p.rapidapi.com",
             "x-rapidapi-key: 07e55202eemshd454005e3a79774p103cccjsn4b32f05d3a2f",
             "useQueryString: true"})
     @GET("matches.php")
-    Call<GamesModel> getAllGames(@Query("completedlimit") String climit, @Query("inprogresslimit") String ilimit, @Query("upcomingLimit") String ulimit);
+    Call<GamesModel> getAllGames();
 
     @Headers({"x-rapidapi-host: dev132-cricket-live-scores-v1.p.rapidapi.com",
             "x-rapidapi-key: 07e55202eemshd454005e3a79774p103cccjsn4b32f05d3a2f",
             "useQueryString: true"})
     @GET("matchseries.php")
-    Call<GamesModel> getSeriesGames(@Query("seriesid") String id);
+    Call<GamesModel> getSeriesGames(@Query("seriesid") String seriesId);
 
     @Headers({"x-rapidapi-host: dev132-cricket-live-scores-v1.p.rapidapi.com",
             "x-rapidapi-key: 07e55202eemshd454005e3a79774p103cccjsn4b32f05d3a2f",
@@ -51,4 +52,10 @@ public interface CricketApi {
             "useQueryString: true"})
     @GET("teamplayers.php")
     Call<PlayersModel> getTeamPlayers(@Query("teamid") String id);
+
+    @Headers({"x-rapidapi-host: dev132-cricket-live-scores-v1.p.rapidapi.com",
+            "x-rapidapi-key: 07e55202eemshd454005e3a79774p103cccjsn4b32f05d3a2f",
+            "useQueryString: true"})
+    @GET("match.php")
+    Call<MatchDetailsModel> getMatchDetails(@Query("seriesid") String seriesId, @Query("matchid") String matchId);
 }

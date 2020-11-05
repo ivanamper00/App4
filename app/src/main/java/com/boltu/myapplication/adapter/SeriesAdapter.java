@@ -1,6 +1,7 @@
 package com.boltu.myapplication.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.media.Image;
@@ -27,6 +28,7 @@ import java.util.List;
 public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesViewHolder> {
     GlobalController globalController;
     CountDownTimer countDownTimer;
+    Dialog dialog;
     Context context;
     List<SeriesListModel> seriesListModelList;
     SeriesListModel seriesListModel;
@@ -51,18 +53,55 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesView
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(context,seriesId.getText().toString(),Toast.LENGTH_SHORT).show();
-                    globalController.startLoading();
-                    loop();
                     globalController.clearContents();
-                    globalController.setDefaultSeries(seriesId.getText().toString());
-                    globalController.saveSeries();
-                    globalController.saveSeriesGames();
-                    globalController.saveStandings();
-                    globalController.saveTeams();
-                    globalController.saveAllGames();
+                   changeSeries(seriesId.getText().toString());
                 }
             });
         }
+    }
+
+    public void successMessage(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.context);
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage("Changes Applied!");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                globalController.NextIntent(MainActivity.class);
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
+
+    public void changeSeries(final String id){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.context);
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage("Do you want to change the series ?");
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                globalController.setDefaultSeries(id);
+                globalController.saveSeries();
+                globalController.saveSeriesGames();
+                globalController.saveStandings();
+                globalController.saveTeams();
+                globalController.saveAllGames();
+                loop();
+                globalController.startLoading();
+                dialog.dismiss();
+
+            }
+        });
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.show();
     }
 
     public SeriesAdapter(Context context, List<SeriesListModel> seriesListModelList){
@@ -117,7 +156,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesView
                     loop();
                 }else{
                     globalController.stopLoading();
-                    globalController.NextIntent(MainActivity.class);
+                    successMessage();
                 }
 
             }

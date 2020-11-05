@@ -1,10 +1,12 @@
 package com.boltu.myapplication.controller.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.boltu.myapplication.R;
 import com.boltu.myapplication.adapter.SeriesAdapter;
@@ -16,6 +18,7 @@ import java.util.List;
 public class SeriesActivity extends AppCompatActivity {
     GlobalController globalController;
     RecyclerView recyclerView;
+//    CardView noData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,12 +26,18 @@ public class SeriesActivity extends AppCompatActivity {
 
         globalController = new GlobalController(this);
         recyclerView = findViewById(R.id.series_recycler);
+//        noData = findViewById(R.id.card_no_data);
+//        noData.setVisibility(View.GONE);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
-
         List<SeriesListModel> seriesListModels = globalController.retrieveSeries();
-        SeriesAdapter adapter = new SeriesAdapter(this, seriesListModels);
-        recyclerView.setAdapter(adapter);
+
+        if(seriesListModels.size() == 0){
+//            noData.setVisibility(View.VISIBLE);
+        }else{
+            SeriesAdapter adapter = new SeriesAdapter(this, seriesListModels);
+            recyclerView.setAdapter(adapter);
+        }
 
     }
     @Override

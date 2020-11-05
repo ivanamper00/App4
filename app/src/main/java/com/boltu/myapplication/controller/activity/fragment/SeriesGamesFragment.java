@@ -2,6 +2,7 @@ package com.boltu.myapplication.controller.activity.fragment;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import com.boltu.myapplication.adapter.GamesAdapter;
 import com.boltu.myapplication.controller.GlobalController;
 import com.boltu.myapplication.model.games.MatchListModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +25,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class SeriesGamesFragment extends Fragment {
-    GlobalController globalController;
-    RecyclerView recyclerView;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,7 +65,9 @@ public class SeriesGamesFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    GlobalController globalController;
+    RecyclerView recyclerView;
+    CardView noData;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,12 +75,28 @@ public class SeriesGamesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_series_games, container, false);
         globalController = new GlobalController(getContext());
         recyclerView = view.findViewById(R.id.games_recycler);
+        noData = view.findViewById(R.id.card_no_data);
+        noData.setVisibility(View.GONE);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
 
         List<MatchListModel> matchList = globalController.retrieveGames();
-        GamesAdapter adapter = new GamesAdapter(getContext(), matchList);
-        recyclerView.setAdapter(adapter);
+        List<MatchListModel> filteredList = new ArrayList<>();
+
+        for(int i = 0; i<matchList.size(); i++){
+            if(matchList.get(i).getStatus().equalsIgnoreCase("UPCOMING") && !matchList.get(i).getHomeTeam().getName().equalsIgnoreCase("Unknown")){
+                filteredList.add(matchList.get(i));
+            }
+        }
+
+        if(filteredList.size() == 0){
+            noData.setVisibility(View.VISIBLE);
+        }else{
+            GamesAdapter adapter = new GamesAdapter(getContext(), filteredList);
+            recyclerView.setAdapter(adapter);
+        }
+
+
         return view;
     }
 }

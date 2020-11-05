@@ -34,11 +34,13 @@
         <!--        </LinearLayout>-->
     </androidx.appcompat.widget.Toolbar>
 
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="55dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="55dp">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"

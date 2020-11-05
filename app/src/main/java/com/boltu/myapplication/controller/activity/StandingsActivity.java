@@ -1,11 +1,13 @@
 package com.boltu.myapplication.controller.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,12 +30,14 @@ public class StandingsActivity extends AppCompatActivity {
     TextView seriesStart;
     TextView seriesEnd;
     ImageView seriesLogo;
+    CardView noData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_standings);
         globalController = new GlobalController(this);
-
+        noData = findViewById(R.id.card_no_data);
+        noData.setVisibility(View.GONE);
         seriesName = findViewById(R.id.standings_series_name);
         seriesStatus = findViewById(R.id.standings_series_status);
         seriesStart = findViewById(R.id.standings_series_start);
@@ -57,9 +61,16 @@ public class StandingsActivity extends AppCompatActivity {
                 break;
             }
         }
+
         List<TeamStandingModel> teamStandingModels = standing.getTeams();
-        StandingsAdapter adapter = new StandingsAdapter(this,teamStandingModels);
-        recyclerView.setAdapter(adapter);
+        if(teamStandingModels.size() ==0){
+            noData.setVisibility(View.VISIBLE);
+        }else{
+            StandingsAdapter adapter = new StandingsAdapter(this,teamStandingModels);
+            recyclerView.setAdapter(adapter);
+        }
+
+
     }
     @Override
     public void onBackPressed() {

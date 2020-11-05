@@ -202,7 +202,7 @@ public class GlobalController {
 
     public void saveAllGames(){
 
-        Call<GamesModel> call = getRetrofitBuilder().getAllGames("10","0","0");
+        Call<GamesModel> call = getRetrofitBuilder().getAllGames();
 
         call.enqueue(new Callback<GamesModel>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
